@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.yingtian</groupId>
-    <artifactId>aliddns</artifactId>
+    <artifactId>aliDns</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>aliDns</name>
-    <description>阿里云ddns</description>
+    <description>阿里云dns</description>
 
     <properties>
         <java.version>1.8</java.version>
