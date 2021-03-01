@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration  scan="true" scanPeriod="60 seconds" debug="false">
-    <contextName>Yingtian</contextName>
-    <property name="log.path" value="./aliddns-logs" />
+    <contextName>aliDns</contextName>
+    <property name="log.path" value="./aliDns-logs" />
     <!-- 彩色日志 -->
     <!-- 彩色日志依赖的渲染类 -->
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
@@ -36,5 +36,5 @@
         <appender-ref ref="file" />
     </root>
     <!-- logback为java中的包 -->
-    <logger name="com.yingtian.aliddns"/>
+    <logger name="com.aliDns"/>
 </configuration>
