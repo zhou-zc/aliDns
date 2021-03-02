@@ -30,11 +30,9 @@ public class ALiDdnsTask {
     private static IAcsClient client = null;
     static {
         String regionId = "cn-hangzhou";
-        String accessKeyId = "888888888";
-        String accessKeySecret = "88888888888888888888";
+        String accessKeyId = "/";
+        String accessKeySecret = "/";
         IClientProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, accessKeySecret);
-        // 若报Can not find endpoint to access异常，请添加以下此行代码
-        // DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "Alidns", "alidns.aliyuncs.com");
         client = new DefaultAcsClient(profile);
     }
 //    @Scheduled(cron = "0 0/10 8-10 * * ?")
