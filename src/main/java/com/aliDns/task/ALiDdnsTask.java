@@ -28,36 +28,45 @@ public class ALiDdnsTask {
     private static final Logger log = LoggerFactory.getLogger(ALiDdnsTask.class);
     private static final Map<String,String> cache = new HashMap<>(4);
     private static IAcsClient client = null;
+    private String IP = "";
     static {
-        String regionId = "cn-hangzhou";
-        String accessKeyId = "/";
-        String accessKeySecret = "/";
-        IClientProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, accessKeySecret);
-        client = new DefaultAcsClient(profile);
+        try {
+            String regionId = "cn-hangzhou";
+            String accessKeyId = "";
+            String accessKeySecret = "";
+            IClientProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, accessKeySecret);
+            DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "Alidns", "alidns.aliyuncs.com");
+            client = new DefaultAcsClient(profile);
+        } catch (ClientException e) {
+            log.error("添加Endpoint错误");
+        }
     }
-//    @Scheduled(cron = "0 0/10 8-10 * * ?")
-    @Scheduled(cron = "0 0/15 * * * ?")
+    @Scheduled(cron = "0 0/1 * * * ?")
     public void scheduledTask() {
         String ip = this.getIp();
-        try {
-            final List<DescribeDomainRecordsResponse.Record> records = getRecords();
-            for (DescribeDomainRecordsResponse.Record record : records) {
-                final String rr = record.getRR();
-                final String value = record.getValue();
-                if(rr.equals("dev") && !ip.equals(value)){
-                    // 更新解析
-                    UpdateDomainRecordRequest request = new UpdateDomainRecordRequest();
-                    request.setRR("dev");
-                    request.setRecordId("20373458475616256");
-                    request.setType("A");
-                    request.setValue(ip);
-                    UpdateDomainRecordResponse response = client.getAcsResponse(request);
-                    log.info("更新云解析结果：{}",response.toString());
+        if(!IP.equals(ip)){
+            try {
+                final List<DescribeDomainRecordsResponse.Record> records = getRecords();
+                for (DescribeDomainRecordsResponse.Record record : records) {
+                    final String rr = record.getRR();
+                    final String value = record.getValue();
+                    if(rr.equals("dev") && !ip.equals(value)){
+                        // 更新解析
+                        UpdateDomainRecordRequest request = new UpdateDomainRecordRequest();
+                        request.setRR("dev");
+                        request.setRecordId("20373458475616256");
+                        request.setType("A");
+                        request.setValue(ip);
+                        UpdateDomainRecordResponse response = client.getAcsResponse(request);
+                        log.info("更新云解析结果：{}",response.toString());
+                    }
                 }
+            } catch (ClientException e) {
+                log.error("更新云解析结果：{}",e.getErrMsg());
             }
-        } catch (ClientException e) {
-            log.error("更新云解析结果：{}",e.getErrMsg());
+            IP = ip;
         }
+
     }
 
     /**
@@ -70,7 +79,7 @@ public class ALiDdnsTask {
         Gson gson = new Gson();
         final Map<String,String> dataMap = gson.fromJson(response, Map.class);
         String ip = dataMap.get("ip");
-        log.info("获取的IP是【{}】",ip);
+        log.info("获取的IP:【{}】",ip);
         return ip;
     }
 
