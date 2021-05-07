@@ -1,18 +1,17 @@
 package com.aliDns.task;
 
 import com.aliDns.api.IpApi;
+import com.aliDns.domain.AliClient;
 import com.aliDns.dto.Ip;
-import com.aliyuncs.DefaultAcsClient;
-import com.aliyuncs.IAcsClient;
 import com.aliyuncs.alidns.model.v20150109.DescribeDomainRecordsRequest;
 import com.aliyuncs.alidns.model.v20150109.DescribeDomainRecordsResponse;
 import com.aliyuncs.alidns.model.v20150109.UpdateDomainRecordRequest;
 import com.aliyuncs.alidns.model.v20150109.UpdateDomainRecordResponse;
 import com.aliyuncs.exceptions.ClientException;
-import com.aliyuncs.profile.DefaultProfile;
-import com.aliyuncs.profile.IClientProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import retrofit2.Call;
@@ -21,32 +20,22 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
+ * 定时更新域名解析规则
  * @author zhou-zc
  */
 @Component
 public class ALiDdnsTask {
     private static final Logger log = LoggerFactory.getLogger(ALiDdnsTask.class);
-    private static final Map<String,String> cache = new HashMap<>(4);
-    private static IAcsClient client = null;
-    private String IP = "";
 
-    static {
-        try {
-            String regionId = "cn-hangzhou";
-            String accessKeyId = "";
-            String accessKeySecret = "";
-            IClientProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, accessKeySecret);
-            DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "Alidns", "alidns.aliyuncs.com");
-            client = new DefaultAcsClient(profile);
-        } catch (ClientException e) {
-            log.error("添加Endpoint错误");
-        }
-    }
+    @Value("${aliDns.domainName}")
+    private String domainName;
+
+    @Autowired
+    private AliClient aliClient;
+
     @Scheduled(cron = "0 0/1 * * * ?")
     public void scheduledTask() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -73,7 +62,7 @@ public class ALiDdnsTask {
                             request.setRecordId("20373458475616256");
                             request.setType("A");
                             request.setValue(ip);
-                            UpdateDomainRecordResponse acsResponse = client.getAcsResponse(request);
+                            UpdateDomainRecordResponse acsResponse = aliClient.getAcsClient().getAcsResponse(request);
                             log.info("更新云解析结果：{}",acsResponse.toString());
                         }
                     }
@@ -95,8 +84,8 @@ public class ALiDdnsTask {
      */
     private List<DescribeDomainRecordsResponse.Record> getRecords() throws ClientException {
         DescribeDomainRecordsRequest request = new DescribeDomainRecordsRequest();
-        request.setDomainName("");
-        DescribeDomainRecordsResponse response = client.getAcsResponse(request);
+        request.setDomainName(domainName);
+        DescribeDomainRecordsResponse response = aliClient.getAcsClient().getAcsResponse(request);
         final List<DescribeDomainRecordsResponse.Record> domainRecords = response.getDomainRecords();
         return domainRecords;
     }
