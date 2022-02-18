@@ -36,7 +36,7 @@ public class ALiDdnsTask {
     @Autowired
     private AliClient aliClient;
 
-    @Scheduled(cron = "0 0/1 * * * ?")
+    @Scheduled(cron = "0 0/3 * * * ?")
     public void scheduledTask() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://jsonip.com")
