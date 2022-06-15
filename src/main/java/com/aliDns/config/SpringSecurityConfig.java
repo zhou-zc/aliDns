@@ -1,3 +1,4 @@
+/*
 package com.aliDns.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,10 +19,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.PrintWriter;
 
+*/
 /**
  * security配置类
  * @author zhou-zc
- */
+ *//*
+
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -78,3 +81,4 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 }
+*/
