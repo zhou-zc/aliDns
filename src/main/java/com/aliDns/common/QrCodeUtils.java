@@ -21,8 +21,6 @@ public class QrCodeUtils {
      * 二维码尺寸
      */
     private static final int QR_CODE_SIZE = 450;
-
-
     public static byte[] createImage(String content) throws WriterException, IOException {
         Hashtable<EncodeHintType, Object> hints = new Hashtable<>();
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
@@ -37,7 +35,6 @@ public class QrCodeUtils {
                 image.setRGB(x, y, bitMatrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF);
             }
         }
-
         //输出流
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         ImageIO.write(image, "png", stream);
