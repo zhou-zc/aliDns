@@ -1,5 +1,8 @@
 package com.aliDns.dto;
 
+/**
+ * @author
+ */
 public class Ip {
     private String ip;
 
