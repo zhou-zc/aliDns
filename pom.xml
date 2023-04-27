@@ -89,6 +89,11 @@
             <artifactId>javase</artifactId>
             <version>3.3.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.mybatis-flex</groupId>
+            <artifactId>mybatis-flex-spring-boot-starter</artifactId>
+            <version>1.2.0</version>
+        </dependency>
     </dependencies>
 
     <build>
