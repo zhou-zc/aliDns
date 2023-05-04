@@ -15,7 +15,6 @@ package com.aliDns;
  */
 public class SnowflakeDistributeId {
 
-    // ==============================Fields===========================================
     /**
      * 开始时间截 (2015-01-01)
      */
