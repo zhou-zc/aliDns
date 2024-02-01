@@ -5,7 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class AliddnsApplicationTests {
 
-//    @Test
+//    @TestAdd
 //    void contextLoads() {
 //    }
 
