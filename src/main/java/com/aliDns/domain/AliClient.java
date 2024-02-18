@@ -27,7 +27,6 @@ public class AliClient {
         }
     }
 
-
     public IAcsClient getAcsClient(){
         return this.client;
     }
