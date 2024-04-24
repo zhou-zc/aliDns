@@ -32,7 +32,6 @@ public class ALiDdnsTask {
 
     @Value("${aliDns.domainName}")
     private String domainName;
-
     @Autowired
     private AliClient aliClient;
 

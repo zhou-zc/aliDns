@@ -14,9 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AliClient {
     private static final Logger log = LoggerFactory.getLogger(ALiDdnsTask.class);
-
     private IAcsClient client = null;
-
     public AliClient(@Value("${aliDns.accessKeyId}") String accessKeyId, @Value("${aliDns.accessKeySecret}") String accessKeySecret){
         try {
             IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
@@ -30,5 +28,4 @@ public class AliClient {
     public IAcsClient getAcsClient(){
         return this.client;
     }
-
 }

@@ -11,6 +11,5 @@ public class DomainService {
      * 添加域名
      */
     public void addDomain(){
-
     }
 }
