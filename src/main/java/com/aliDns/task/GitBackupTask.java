@@ -105,6 +105,7 @@ public class GitBackupTask {
         }
     }
 
+
     /**
      * 压缩文件夹
      * @param zipPath

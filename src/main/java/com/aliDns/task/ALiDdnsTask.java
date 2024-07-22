@@ -42,6 +42,7 @@ public class ALiDdnsTask {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+
         IpApi service = retrofit.create(IpApi.class);
         final Call<Ip> ipCall = service.getIp();
         ipCall.enqueue(new Callback<Ip>() {
