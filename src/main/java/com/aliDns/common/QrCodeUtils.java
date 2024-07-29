@@ -22,6 +22,7 @@ public class QrCodeUtils {
      */
     private static final int QR_CODE_SIZE = 450;
 
+
     public static byte[] createImage(String content) throws WriterException, IOException {
         Hashtable<EncodeHintType, Object> hints = new Hashtable<>();
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
