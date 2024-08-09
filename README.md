@@ -7,6 +7,8 @@ Dynamically update domain name resolution,Obtain the public IP address periodica
 ## environment
 Server: Ensure that the server has an operating system installed and is able to access the Internet.
 JDK: 1.8
+## build
+mvn build
 ## start
 java -jar aliDns.jar
 # Features
