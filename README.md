@@ -9,3 +9,6 @@ Server: Ensure that the server has an operating system installed and is able to 
 JDK: 1.8
 ## start
 java -jar aliDns.jar
+# Features
+Add ui interface
+Multi-domain support
